@@ -70,12 +70,18 @@ const END_DATE = "2026-01-31";
 2. Paste your configured script and press **Enter**.
 3. **Wait:** You will see "Batch received" and "Fetching replies" messages appear as the script works. For a full month, this may take 1-2 minutes.
    * *Emergency Stop:* If you need to stop the script mid-run, type `stopNow = true` in the console and press Enter. It will safely package whatever data it has collected so far.
+  
+<img width="1402" height="798" alt="image" src="https://github.com/user-attachments/assets/cc5d803c-09f0-456b-b07c-1fd6c15c8944" />
+
 
 ### Step D: Save your Data (Triple Failsafe)
 Once the console says **✅ EXTRACTION COMPLETE!**, a large overlay window will appear. You have three ways to save:
 1. **Auto-Download:** The script will attempt to auto-download the `.md` file to your browser's download folder. 
 2. **Overlay Buttons:** Use the **⬇️ Download File** or **📋 Copy Text** buttons inside the overlay window.
 3. **Manual Copy:** If the buttons are blocked by enterprise security, click inside the large text box, press `Ctrl + A` (Select All), then `Ctrl + C` (Copy), and paste into a local text editor.
+
+<img width="1437" height="830" alt="image" src="https://github.com/user-attachments/assets/ca20c6fb-af29-42e6-8595-26a34f498a91" />
+
 
 ---
 
