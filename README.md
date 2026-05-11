@@ -1,4 +1,4 @@
-# 🚀 Slack Message Extractor
+<img width="1437" height="830" alt="Screenshot 2026-05-11 at 3 03 37 PM" src="https://github.com/user-attachments/assets/0acbde96-df5b-41a7-aa09-d7f87880ffdd" /># 🚀 Slack Message Extractor
 
 A client-side JavaScript tool designed to extract conversational knowledge from Slack channels and format it into clean, anonymized Markdown. 
 
@@ -80,7 +80,8 @@ Once the console says **✅ EXTRACTION COMPLETE!**, a large overlay window will 
 2. **Overlay Buttons:** Use the **⬇️ Download File** or **📋 Copy Text** buttons inside the overlay window.
 3. **Manual Copy:** If the buttons are blocked by enterprise security, click inside the large text box, press `Ctrl + A` (Select All), then `Ctrl + C` (Copy), and paste into a local text editor.
 
-<img width="1437" height="830" alt="image" src="https://github.com/user-attachments/assets/ca20c6fb-af29-42e6-8595-26a34f498a91" />
+<img width="1497" height="870" alt="image" src="https://github.com/user-attachments/assets/0593dfad-e2fd-4e77-a12a-3436e8943453" />
+
 
 
 ---
