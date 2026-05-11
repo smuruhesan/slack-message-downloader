@@ -1,4 +1,4 @@
-<img width="1437" height="830" alt="Screenshot 2026-05-11 at 3 03 37 PM" src="https://github.com/user-attachments/assets/0acbde96-df5b-41a7-aa09-d7f87880ffdd" /># 🚀 Slack Message Extractor
+# 🚀 Slack Message Extractor
 
 A client-side JavaScript tool designed to extract conversational knowledge from Slack channels and format it into clean, anonymized Markdown. 
 
