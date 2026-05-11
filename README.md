@@ -1,17 +1,23 @@
-This README provides step-by-step instructions for using the **Slack API Vacuum** script. This tool is designed to bypass enterprise security restrictions (like Prisma Access) by extracting Slack conversation data directly into a "Copy-Paste" window.
+# 🚀 Slack Message Extractor
 
-The output is formatted specifically for **NotebookLM**, featuring thread-based navigation, date grouping, and full anonymization (removing all User IDs).
+A client-side JavaScript tool designed to extract conversational knowledge from Slack channels and format it into clean, anonymized Markdown. 
 
-
-## CHANNEL ID
-
-#cortex-cloud = "C0812EFC362"; 
-#cortex-cloud-cloudxql = "C09TCS8PWV6"
-
+This tool is explicitly designed to bypass enterprise browser download restrictions (e.g., Prisma Access) by utilizing a custom in-browser UI overlay. It allows authorized users to export contextual data into standard `.md` files, which are perfect for archiving, building knowledge bases, or feeding into applications that utilize Markdown (such as internal wikis or AI ingestion tools).
 
 ---
 
-# 🚀 Slack API Vacuum: Knowledge Extractor for NotebookLM
+## 🔒 Security & Compliance
+
+> **⚖️ Disclaimer:** This tool is intended for use by authorized personnel only for the purpose of technical documentation, summarization, and knowledge management. Users are strictly responsible for ensuring their data extraction complies with their organization's data privacy, security, and DLP (Data Loss Prevention) policies.
+>  **Please ensure you strictly comply with your company's privacy, data handling, and compliance policies before exporting any private or sensitive conversations.**
+
+This script is built with strict organizational security in mind:
+* **Local Execution Only:** The script runs entirely in your browser's local memory. No data is ever sent to, or routed through, third-party servers.
+* **Domain Lock:** Execution is hard-coded to require the `slack.com` domain. It will fail if run elsewhere.
+* **Strict RBAC Adherence:** This tool does *not* bypass Slack permissions. You can only extract channels that your authenticated user account already has access to view.
+* **Identity Scrubbing:** Automatically scrubs all Slack User IDs to ensure data privacy and prevent PII leakage.
+
+---
 
 ## 1. Prerequisites
 * **Browser:** Use a web-based browser (Chrome, Edge, or Prisma Access Browser).
@@ -23,231 +29,102 @@ The output is formatted specifically for **NotebookLM**, featuring thread-based 
 ## 2. Step-by-Step Instructions
 
 ### Step A: Capture your Session Token
-1. Open your target Slack channel (e.g., `#cortex-cloud`).
-2. Open **Developer Tools** (`F12`) and go to the **Network** tab.
+Slack uses a temporary web session token called an `xoxc` token. You need this to authorize the script.
+1. Open your target Slack channel in your browser.
+2. Open **Developer Tools** (`F12` or `Right-Click > Inspect`) and go to the **Network** tab.
 3. In the "Filter" box, type `history`.
 4. Scroll up once in your Slack chat to trigger a load.
 5. Click on the `conversations.history` request that appears.
 6. Click the **Payload** tab and copy the `token` (starts with `xoxc-`).
+   * *⚠️ Warning: Do not share this token; it is your temporary session password.*
 
-### Step B: Run the Extraction
+### Step B: Configure the Script
+Paste the script into a text editor (like Notepad or VS Code) to set your parameters before running it.
+
+```javascript
+// --- CONFIGURATION ---
+const TOKEN = "YOUR_TOKEN_HERE"; 
+const CHANNEL_ID = "C1234567890"; // See instructions below to find this
+const START_DATE = "2026-01-01";
+const END_DATE = "2026-01-31";
+```
+
+**How to find your `CHANNEL_ID`:**
+1. In Slack, click on the channel name at the very top of the chat window to open the channel details.
+2. Scroll to the very bottom of the **About** tab.
+3. You will see the Channel ID listed (e.g., `Channel ID: C1234567890`).
+4. Click the small "Copy" icon next to it and paste it into the script.
+
+*Tip - Example Channel IDs:*
+* `#marvel-avengers` = `C1234567890` 
+* `#stark-industries-dev` = `C0987654321`
+
+### Step C: Run the Extraction
 1. Switch to the **Console** tab in Developer Tools.
-2. Paste the  **script**.
-3. Replace `YOUR_TOKEN_HERE` with your copied token.
-4. Set your `START_DATE` and `END_DATE`.
-5. Press **Enter**.
+2. Paste your configured script and press **Enter**.
+3. **Wait:** You will see "Batch received" and "Fetching replies" messages appear as the script works. For a full month, this may take 1-2 minutes.
+   * *Emergency Stop:* If you need to stop the script mid-run, type `stopNow = true` in the console and press Enter. It will safely package whatever data it has collected so far.
 
-### Step C: Save your Data (Triple Failsafe)
-Once the console says **✅ EXTRACTION COMPLETE!**, use one of these three methods:
-1. **Auto-Download:** Check your browser's download folder for the `.md` file.
-2. **Console Link:** Click the blue `blob:` link printed in the console.
-3. **Overlay Window:** Use the large window that appeared over Slack. Click **"Copy to Clipboard"**, then paste into a text file on your computer and save it as `Cortex_Export.md`.
+### Step D: Save your Data (Triple Failsafe)
+Once the console says **✅ EXTRACTION COMPLETE!**, a large overlay window will appear. You have three ways to save:
+1. **Auto-Download:** The script will attempt to auto-download the `.md` file to your browser's download folder. 
+2. **Overlay Buttons:** Use the **⬇️ Download File** or **📋 Copy Text** buttons inside the overlay window.
+3. **Manual Copy:** If the buttons are blocked by enterprise security, click inside the large text box, press `Ctrl + A` (Select All), then `Ctrl + C` (Copy), and paste into a local text editor.
 
 ---
 
-## 3. What this Script does to your Data
-To make this file "AI-Ready" for NotebookLM, the script performs several background transformations:
+## 3. Behind the Scenes: Data Transformations
+
+To make this file highly readable and structured for downstream applications, the script performs several background transformations. Understanding how the database sees Slack versus how humans see it is key to why this tool is effective.
 
 ### 🛡️ Hard Anonymization (`@U...` IDs)
-In Slack’s database, users are stored as IDs (e.g., `<@U0123456>`). If left in the text, NotebookLM sees these as technical keywords, which can confuse its answers. 
-* **The Script:** Uses a Regex filter to find and delete every User ID and Mention, leaving only the "human" technical conversation.
+In the world of Slack, a Display Name like "Tony Stark" is just a label. Your true identity is a User ID (e.g., `U87654321`). When you tag someone, Slack stores a mention tag like `<@U87654321>`.
+* **The Problem:** When you feed raw data into parsers, search engines, or LLMs, they often index these IDs as high-priority keywords, which clutters the data.
+* **The Solution:** The script uses Regular Expressions (Regex)—specifically `/<@[A-Z0-9]+>/g`—to find and permanently delete every User ID and Mention, forcing downstream applications to focus solely on the "human" technical conversation.
 
 ### 🧵 Thread Reconstruction
-Slack stores replies separately from main posts. If you just copy-pasted the screen, you would lose the context of the answers.
-* **The Script:** Sees if a post has replies, goes back into the database to find those specific replies, and "nests" them directly under the main question.
+Slack stores replies separately from main posts as a flat list. If you just copy-pasted the screen, you would lose the connection between a question and its answer.
+* **The Solution:** The script performs a Secondary Fetch. It sees if a parent post has replies (`reply_count > 0`), goes back into the database to find those specific replies, and "nests" them directly under the main question.
 
 ### 🗺️ Navigation Headings
-NotebookLM works best when it has a "Table of Contents." 
-* **The Script:** Takes the first 50 characters of every new thread and turns it into a `### Heading`. This allows NotebookLM to index the file by **Topic**, making your citations much more accurate.
+Markdown parsers work best when they have a clear hierarchy. Without headings, the output would be one giant wall of text.
+* **The Solution:** The script takes the first 50 characters of every new thread and turns it into a `### Heading`. This acts as a Table of Contents, allowing documentation platforms to index every thread as a separate "Topic." 
 
 ### 🔗 Single-Link Context
 Instead of cluttering every line with a URL, the script places a **single deep-link** at the top of each thread. 
-* **The Benefit:** If the AI gives you an answer and you want to see the original screenshots or files in Slack, you can click that one link to jump exactly to that moment in the Slack history.
+* **The Solution:** If you are reviewing the extracted documentation and need to see original screenshots, attachments, or full context, you can click that one link to jump exactly to that moment in the live Slack history.
 
 ---
 
-**Tip for NotebookLM:** Once you upload this `.md` file, use the **"Notebook Guide"** to generate a "Briefing Doc." It will use the script's thread headings to give you a high-level summary of everything discussed in that month!
+## ❓ Frequently Asked Questions (FAQ)
 
+### What is the `xoxc` token and how often does it expire?
+The `xoxc` token is your temporary web session token. It is generated when you log into Slack via the browser. 
+* **Expiration:** It typically expires when you log out, clear your cookies, or when your enterprise's SSO session times out (usually 24 hours to a few days). 
+* **Invalid Tokens:** If the script console returns an `auth_error` or `invalid_auth`, your token has expired. Simply refresh the Slack tab in your browser, perform **Step A** again to get a fresh token, and re-run the script.
 
+### Does running this script create any security loopholes?
+**No.** This script is entirely client-side. It acts exactly like a human rapidly scrolling through the channel and clicking "copy." 
+* It only accesses channels you already have explicit permission to view. 
+* It does not create API keys, backend tunnels, or install apps in the Slack workspace. 
+* The script is completely erased from your browser's memory the moment you refresh the page or close the tab. 
 
+### Will my IT or Security team be alerted if I run this?
+The script makes standard API requests that mimic normal Slack web application behavior. Because it does not use unauthorized third-party integrations, it typically does not trigger anomalous behavior alerts. However, you are bulk-extracting data, so you should ensure your actions comply with your organization's Data Loss Prevention (DLP) and acceptable use policies.
 
+### Does this script download files, images, or attachments?
+**No.** To maintain strict security and keep the export file size small, the script does not download actual files or images. Instead, it captures the private Slack URLs for those files. You (or anyone reading the document) must be actively logged into the company Slack to view them, ensuring your proprietary files remain securely behind authentication.
 
+### Can I extract Private Channels or Direct Messages (DMs)?
+**Yes.** As long as your logged-in user account is a member of that private channel or DM. You can find the ID for a DM by looking at the URL in your browser when the DM is open (it usually starts with `D` or `C`). **However, please ensure you strictly comply with your company's privacy, data handling, and compliance policies before exporting any private or sensitive conversations.**
 
+### Will I hit Slack API limits or get temporarily banned?
+Slack employs Tier 3 rate limits for the `conversations.history` and `conversations.replies` endpoints (roughly 50+ requests per minute). 
+* **Built-in Delays:** This script includes forced `sleep()` delays between API calls (350ms to 500ms) specifically designed to respect Slack's rate-limiting rules. 
+* **Safety:** Because of these built-in delays, it mimics a safe rate of traffic and will not trigger a DDoS flag or get your account suspended. 
 
+### What happens if my computer goes to sleep or loses internet?
+Because the script runs locally in your browser tab, a computer sleep state or network drop will sever the connection to the Slack API and halt the extraction. It is highly recommended to keep the Slack tab active and your computer awake during the run.
 
-
-
-
-
-
-=============================
-
-
-Older Readme Version below
-
-
-
-
-
-
-This README provides step-by-step instructions for using the **Slack API Vacuum** script. This tool is designed to bypass enterprise security restrictions (like Prisma Access) by extracting Slack conversation data directly into a "Copy-Paste" window.
-
-The output is formatted specifically for **NotebookLM**, featuring thread-based navigation, date grouping, and full anonymization (removing all User IDs).
-
----
-
-# 🚀 Slack API Vacuum: Knowledge Extractor for NotebookLM
-
-## Overview
-This script talks directly to the Slack backend to "vacuum" up a month's worth of data. It preserves thread structures and replaces messy User IDs with clean, technical headings.
-
-### Prerequisites
-* **Browser**: Use a web-based browser (Chrome, Edge, or Prisma Access Browser).
-
-* **URL**: You must be logged into Slack at https://app.slack.com/.
-
-* **Note**: The script will not work inside the Slack Desktop App.
-
-
-### Key Features:
-* **Identity-Free:** Automatically strips all `<@U12345>` mentions and User IDs.
-* **Thread Headings:** Uses the first 50 characters of a post as a heading for easy navigation in NotebookLM.
-* **Single-Link Policy:** Provides one Slack deep-link per thread to keep the document clean.
-* **Overlay Method:** Displays a large text window over Slack to bypass "Download Blocked" security policies.
-
----
-
-## Step 1: Prepare your Browser
-1.  Open **Slack** in your Chrome or Prisma Access browser.
-2.  Navigate to the channel you want to capture (e.g., `#cortex-cloud`).
-3.  Open **Developer Tools** by pressing `F12` or `Right-Click > Inspect`.
-4.  Click on the **Network** tab at the top of the Developer Tools panel.
-
-
-
----
-
-## Step 2: Capture your Session Token
-Slack uses a temporary security token called an `xoxc` token. You need this to authorize the script.
-
-1.  In the Network tab "Filter" box (top left), type: `history`
-2.  Click back into the Slack chat and **scroll up once** to trigger a message load.
-3.  In the Network tab list, look for a request named `conversations.history`. Click it.
-4.  In the panel that opens on the right, click the **Payload** tab.
-5.  Find the field named **`token`**. It starts with `xoxc-...`. 
-6.  **Copy the entire token string.** (Do not share this; it is your temporary password).
-
-
-
----
-
-## Step 3: Configure the Script
-Paste the script into a text editor (like Notepad) to set your parameters before running it.
-
-* **`TOKEN`**: Paste your `xoxc-...` token between the quotes.
-* **`START_DATE` / `END_DATE`**: Set your range in `YYYY-MM-DD` format.
-* **`CHANNEL_ID`**: Set to the ID of the channel (I have hardcoded `#cortex-cloud` as `C0812EFC362`).
-
----
-
-## Step 4: Execution
-1.  Go to the **Console** tab in the Developer Tools.
-2.  Paste your configured script and press **Enter**.
-3.  **Wait:** You will see "Batch received" and "Fetching replies" messages appear as the script works.
-    * *Note: For a full month, this may take 1-2 minutes.*
-
----
-
-## Step 5: Capture the Data
-Once the script prints `✅ EXTRACTION COMPLETE!`, a large white window will appear over your Slack interface.
-
-1.  Click the green **"Copy to Clipboard"** button.
-    * *If the button doesn't work:* Click inside the large text box, press `Ctrl + A` (Select All), then `Ctrl + C` (Copy).
-2.  Open a text editor on your computer (Notepad, VS Code, or TextEdit).
-3.  **Paste** the content and save the file with a `.md` extension (e.g., `Cortex_Dec_2025.md`).
-4.  Click the red **"Close Window"** button on the Slack overlay to return to your chat.
-
----
-
-## Step 6: Importing to NotebookLM
-1.  Go to [NotebookLM](https://notebooklm.google.com/).
-2.  Create a new Notebook or open an existing one.
-3.  Upload your saved `.md` file.
-4.  **Best Practice:** NotebookLM will now treat each `### Thread` heading as a separate chapter. You can ask questions like:
-    * *"Summarize the main technical issues discussed on December 12th."*
-    * *"What was the resolution for the k8s cluster glitch mentioned in the threads?"*
-
----
-
-### ⚠️ Security & Troubleshooting
-* **Token Expiry:** If the script returns an "auth_error," your token has expired. Refresh the Slack page and grab a fresh `xoxc` token from the Network tab.
-* **Rate Limiting:** The script has built-in "sleep" timers to avoid being flagged by Slack. Do not remove these timers.
-* **Identity Removal:** The script removes the most common Slack ID formats. If you see remaining IDs, they are likely mentioned as plain text by users.
-
-
-
-
-
-
-
-
-
-==================================
-==================================
-==================================
-
-
-To understand why we go through all this "cleaning," you have to look at the difference between how **you** see Slack and how the **database** sees Slack.
-
-### 1. What is the `@U...` ID?
-In the world of Slack, your name is just a "label," but your **User ID** is your true identity. 
-
-* **Display Name:** "William Mora" (This can be changed anytime).
-* **User ID:** `U0812EF34` (This is unique, permanent, and never changes).
-
-When you type a message like *"Hey @John, check this out,"* Slack doesn't store the word "John." It stores a "mention tag" that looks like this: `<@U1234567890>`. 
-
-
-
-**Why we remove it:**
-When you feed raw data into an AI like NotebookLM, it sees those IDs as high-priority "keywords." If a thread has 50 replies where people are tagging each other, the AI might get confused and think the "User ID" is a technical term or part of the error code. By stripping them, we force the AI to focus on the **actual technical conversation.**
-
----
-
-### 2. How the "Cleaning" (Regex) Works
-The script uses something called **Regular Expressions (Regex)**. Think of it as a "Super Search" that looks for patterns instead of specific words.
-
-In the script, you see this line:
-`clean = text.replace(/<@[A-Z0-9]+>/g, "");`
-
-
-
-* **`<@`**: Look for the start of a mention.
-* **`[A-Z0-9]+`**: Look for any combination of letters and numbers (the ID itself).
-* **`>`**: Look for the end of the tag.
-* **`g`**: Do this for the "Global" document (don't stop at the first one).
-* **`""`**: Replace it with absolutely nothing (delete it).
-
----
-
-### 3. Behind the Scenes: The "Thread" Logic
-Usually, when you copy-paste from a website, you lose the "connection" between a question and its answer. Slack's database stores messages as a flat list. Our script performs a **Secondary Fetch** to reconstruct the conversation.
-
-1.  **The History Call:** The script grabs the main channel messages (the "Parent" posts).
-2.  **The Replies Call:** If a message has a `reply_count > 0`, the script makes a *second* request to the database specifically for that thread's ID.
-3.  **The Nesting:** It then "glues" those replies underneath the parent so that when NotebookLM reads it, the AI understands that the reply is a direct response to the question above it.
-
-
-
----
-
-### 4. Why we added the "Heading" Snippets
-NotebookLM is great at reading documents, but it needs a "Map." 
-
-By turning the first 50 characters of a message into a `### Heading`, we are creating a **Table of Contents**.
-* **Without Headings:** NotebookLM sees one giant wall of text.
-* **With Headings:** NotebookLM treats every thread as a "Topic." 
-
-This allows you to ask the AI: *"Give me a list of all the topics discussed this month,"* and it will give you a perfect bulleted list based on those headings.
-
-Does that help clarify why the "Identity-Free" version is actually "AI-Optimized" for your project?
+### Can I run this for multiple channels at once?
+Currently, the script is designed to extract one channel at a time to prevent browser memory exhaustion (Chrome tabs can crash if they hold too much text data at once). To run for a new channel, simply update the `CHANNEL_ID` in your script, refresh the page, and execute it again.
