@@ -37,6 +37,9 @@ Slack uses a temporary web session token called an `xoxc` token. You need this t
 5. Click on the `conversations.history` request that appears.
 6. Click the **Payload** tab and copy the `token` (starts with `xoxc-`).
    * *⚠️ Warning: Do not share this token; it is your temporary session password.*
+  
+<img width="1434" height="884" alt="image" src="https://github.com/user-attachments/assets/079ca306-0d5d-4b47-9227-d54a3e872520" />
+
 
 ### Step B: Configure the Script
 Paste the script into a text editor (like Notepad or VS Code) to set your parameters before running it.
@@ -58,6 +61,9 @@ const END_DATE = "2026-01-31";
 *Tip - Example Channel IDs:*
 * `#marvel-avengers` = `C1234567890` 
 * `#stark-industries-dev` = `C0987654321`
+
+<img width="1009" height="783" alt="image" src="https://github.com/user-attachments/assets/bde4f692-074e-4c86-b1b1-ab4f07fd0d19" />
+
 
 ### Step C: Run the Extraction
 1. Switch to the **Console** tab in Developer Tools.
