@@ -1,6 +1,6 @@
 // --- CONFIGURATION ---
 const TOKEN = "YOUR_TOKEN_HERE"; 
-const CHANNEL_ID = "C1234567890"; 
+const CHANNEL_ID = "CHANNEL_ID"; 
 const START_DATE = "2026-01-01";
 const END_DATE = "2026-01-31";
 
