@@ -4,7 +4,7 @@ If you ran into an error while attempting to extract data, find your issue below
 
 ### 1. Error: `Uncaught SyntaxError: Invalid or unexpected token`
 * **Why it happens:** Your computer's clipboard or a chat app (like Slack/Teams) accidentally injected hidden line breaks into the code when you copied it. 
-* **How to fix:** Go back to the GitHub repository. Click the **"Copy raw contents"** button (the two overlapping squares icon in the top right corner of the code block). Paste this directly into the console.
+* **How to fix:** Go back to the GitHub repository. Click the **"Copy raw contents"** button (the two overlapping squares icon in the top right corner of the code block). Paste this directly into the console and then update the Configurations directly inside Console. This is to avoid any hidden line breaks introduces by your Code/Text Editors (like TextEdit or VSCode) 
 
 <img width="895" height="639" alt="image" src="https://github.com/user-attachments/assets/798dcf65-e709-415b-bf3c-9bc63e695700" />
 
