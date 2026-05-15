@@ -94,7 +94,8 @@ const END_DATE = "2026-05-17";
 
 > 🛑 **Did you hit an error?** > If you press Enter and see a warning that says *"Don't paste code..."*, an `Uncaught SyntaxError`, or an `auth_error`, please read the [**Troubleshooting Guide**](TROUBLESHOOTING.md) to learn how to instantly fix it.
 
-<img width="1402" height="798" alt="image" src="https://github.com/user-attachments/assets/cc5d803c-09f0-456b-b07c-1fd6c15c8944" />
+<img width="1445" height="857" alt="image" src="https://github.com/user-attachments/assets/23a2dcba-db7f-4f1e-a2c9-769391ba761f" />
+
 
 
 ### Step D: Save your Data (Triple Failsafe)
@@ -103,7 +104,8 @@ Once the console says **✅ EXTRACTION COMPLETE!**, a large overlay window will 
 2. **Overlay Buttons:** Use the **⬇️ Download File** or **📋 Copy Text** buttons inside the overlay window.
 3. **Manual Copy:** If the buttons are blocked by enterprise security, click inside the large text box, press `Ctrl + A` (Select All), then `Ctrl + C` (Copy), and paste into a local text editor.
 
-<img width="1497" height="870" alt="image" src="https://github.com/user-attachments/assets/0593dfad-e2fd-4e77-a12a-3436e8943453" />
+<img width="1442" height="860" alt="image" src="https://github.com/user-attachments/assets/5ed3e801-fecd-4830-a0ef-03e1dba74b21" />
+
 
 ---
 
