@@ -25,6 +25,13 @@ Because it runs entirely within your browser's local memory and interacts only w
 > 💡 **PRO-TIP: Take it for a Test Drive First!**
 > Before extracting a massive, important channel, we highly recommend testing the script to see how it works! Search your Slack for a public channel named `#test-channel-slack-extractor` and join it. If you can't find it, you can easily create your own. Read our quick [**Testing Guide**](TESTING_GUIDE.md) for instructions on how to run a safe practice extraction.
 
+### 🎥 Video Walkthrough
+Prefer a visual guide? Watch this short step-by-step demonstration showing exactly how to capture your token, update the configuration, and run the script from start to finish:
+
+https://github.com/user-attachments/assets/b99a5e28-dddf-42c4-8420-d620440c6e8f
+
+---
+
 ### Step A: Capture your Session Token
 Slack uses a temporary web session token called an `xoxc` token. It is attached to almost every background action you take. You need this to authorize the script.
 1. Open your target Slack channel in your browser.
@@ -39,14 +46,6 @@ Slack uses a temporary web session token called an `xoxc` token. It is attached 
    * *⚠️ Warning: Do not share this token; it is your temporary session password.*
   
 <img width="1434" height="884" alt="image" src="https://github.com/user-attachments/assets/079ca306-0d5d-4b47-9227-d54a3e872520" />
-
-
-
-
-
-
-
-
 
 
 ### Step B: Configure the Script
