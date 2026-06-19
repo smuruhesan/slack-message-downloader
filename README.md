@@ -1,4 +1,4 @@
-![Hits](https://hits.seeyoufarm.com/api/count/graph/badge.svg?url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fyourrepo)
+![GitHub All Releases](https://img.shields.io/github/downloads/smuruhesan/slack-message-downloader/total?color=blue&logo=github)
 
 # 🚀 Slack Message Extractor
 
