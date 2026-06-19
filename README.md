@@ -1,3 +1,5 @@
+![Hits](https://hits.seeyoufarm.com/api/count/graph/badge.svg?url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fyourrepo)
+
 # 🚀 Slack Message Extractor
 
 This tool is a client-side JavaScript utility designed to automate the extraction of Slack messages from channels you already have access to. Instead of manually scrolling and copying conversations, this script compiles the history and formats it into a clean, anonymized Markdown (`.md`) file.
