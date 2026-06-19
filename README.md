@@ -14,7 +14,7 @@ Because it runs entirely within your browser's local memory and interacts only w
 ---
 
 ## 1. Prerequisites
-* **Download the Script:** Download the [**`slack_extractor_script.js`**](slack_extractor_script.js) file from this repository to your computer.
+* **Download the Script:** Download the [**`slack_extractor_script.js`**](https://github.com/smuruhesan/slack-message-downloader/releases/latest/download/slack_extractor_script.js) file from this repository to your computer.
 * **Browser:** Use a web-based browser (Chrome, Edge, Safari, or Enterprise Browser).
 * **URL:** You **must** be logged into Slack on the Browser (Google Chrome or Prisma Browser). Visit, [Slack Workspace Login](http://paloaltonetworks.enterprise.slack.com/) and login to your workspace with your Okta authentication followed by selecting the Workspace where the Slack Channel is available
   * *Note: The script will not work inside the Slack Desktop App.*
@@ -169,3 +169,4 @@ Because the script runs locally in your browser tab, a computer sleep state or n
 Currently, the script is designed to extract one channel at a time to prevent browser memory exhaustion (Chrome tabs can crash if they hold too much text data at once). To run for a new channel, simply update the `CHANNEL_ID` in your script, refresh the page, and execute it again.
 
 ![GitHub All Releases](https://img.shields.io/github/downloads/smuruhesan/slack-message-downloader/total?color=blue&logo=github)
+![Views](https://komarev.com/ghvc/?username=smuruhesan&repo=slack-message-downloader&color=blue)
