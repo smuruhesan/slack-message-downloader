@@ -16,8 +16,10 @@ Because it runs entirely within your browser's local memory and interacts only w
 ## 1. Prerequisites
 * **Download the Script:** Download the [**`slack_extractor_script.js`**](slack_extractor_script.js) file from this repository to your computer.
 * **Browser:** Use a web-based browser (Chrome, Edge, Safari, or Enterprise Browser).
-* **URL:** You **must** be logged into Slack at [https://app.slack.com/](https://app.slack.com/). 
+* **URL:** You **must** be logged into Slack on the Browser (Google Chrome or Prisma Browser). Visit, [Slack Workspace Login](https://slack.com/workspace-signin) and login to your workspace with your Okta authentication followed by selecting the Workspace where the Slack Channel is available
   * *Note: The script will not work inside the Slack Desktop App.*
+
+<img width="665" height="454" alt="image" src="https://github.com/user-attachments/assets/d8958c31-a881-43e2-817b-547056b010c4" />
 
 ---
 
