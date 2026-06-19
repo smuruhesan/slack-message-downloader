@@ -1,4 +1,3 @@
-![GitHub All Releases](https://img.shields.io/github/downloads/smuruhesan/slack-message-downloader/total?color=blue&logo=github)
 
 # 🚀 Slack Message Extractor
 
@@ -168,3 +167,5 @@ Because the script runs locally in your browser tab, a computer sleep state or n
 
 ### Can I run this for multiple channels at once?
 Currently, the script is designed to extract one channel at a time to prevent browser memory exhaustion (Chrome tabs can crash if they hold too much text data at once). To run for a new channel, simply update the `CHANNEL_ID` in your script, refresh the page, and execute it again.
+
+![GitHub All Releases](https://img.shields.io/github/downloads/smuruhesan/slack-message-downloader/total?color=blue&logo=github)
