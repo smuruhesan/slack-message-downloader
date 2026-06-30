@@ -1,6 +1,13 @@
 
 # 🛡️ Security & Compliance (Why this is safe)
 
+> ⚠️ **CRITICAL USAGE & DATA HANDLING WARNING**
+> **Use this tool at your own risk.** The software is provided "as is", without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability arising from its use.
+> This script extracts raw, potentially sensitive internal communications. By using this utility, you take full responsibility for the data you download. 
+> * **Do not** share or distribute the extracted files outside of your organization.
+> * **Do not** upload or store this data on unauthorized personal devices, public cloud storage, or unauthorized third-party AI tools.
+> * **Always** comply strictly with your organization's data privacy, retention, and security policies.
+
 It is common for IT and InfoSec teams to question browser-based extraction scripts. **This script is completely safe, does not bypass any security protocols, and is technically classified as "Client-Side Browser Automation."**
 
 Here is the technical breakdown of how this script maintains strict enterprise compliance:

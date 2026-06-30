@@ -5,6 +5,13 @@ This tool is a client-side JavaScript utility designed to automate the extractio
 
 Because it runs entirely within your browser's local memory and interacts only with the standard web interface, it is completely secure. The custom on-screen display provides a reliable, self-contained way to view and save your data without requiring any third-party app installations or external server connections.
 
+> ⚠️ **CRITICAL USAGE & DATA HANDLING WARNING**
+> [cite_start]**Use this tool at your own risk.** The software is provided "as is", without warranty of any kind. [cite_start]In no event shall the authors or copyright holders be liable for any claim, damages, or other liability arising from its use.
+> This script extracts raw, potentially sensitive internal communications. By using this utility, you take full responsibility for the data you download. 
+> * **Do not** share or distribute the extracted files outside of your organization.
+> * **Do not** upload or store this data on unauthorized personal devices, public cloud storage, or unauthorized third-party AI tools.
+> * **Always** comply strictly with your organization's data privacy, retention, and security policies.
+
 ### 📚 Documentation Links
 * [**📖 Read the Step-by-Step Guide (Below)**](#2-step-by-step-instructions)
 * [**🧪 Read the Testing Guide (Run a Practice Extraction)**](TESTING_GUIDE.md)

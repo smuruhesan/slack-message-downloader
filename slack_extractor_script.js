@@ -1,3 +1,16 @@
+/* ========================================================================
+⚠️ CRITICAL USAGE & DATA HANDLING WARNING ⚠️
+Use this tool at your own risk. The software is provided "as is", without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability arising from its use.
+
+This script extracts raw, potentially sensitive internal communications. 
+By using this utility, you take full responsibility for the data you download.
+- DO NOT share or distribute extracted files outside your organization.
+- DO NOT store data on unauthorized personal devices or public clouds.
+- ALWAYS comply with your organization's data privacy and security policies.
+========================================================================
+*/
+
+
 // --- CONFIGURATION ---
 const TOKEN = "YOUR_TOKEN_HERE"; 
 const CHANNEL_ID = "CXXXXXXXXXX"; 
